@@ -1,6 +1,6 @@
 // Programador: Giovanni Franco Calfiqueo.
 
-const amigos = [];
+let amigos = [];
 
 // Genera un numero al azar con un tope maximo
 function numeroAzar(numeroMaximo) {
@@ -15,7 +15,7 @@ function soloLetras(texto) {
 
 // Imprime al nuevo amigo en pantalla
 function imprimirAmigos(amigo) {
-    const listado = document.querySelector('#listaAmigos');    
+    const listado = document.querySelector('#listaAmigos');
     const nuevo = document.createElement("li");
     nuevo.innerHTML = amigo;
     listado.appendChild(nuevo);    
@@ -30,6 +30,8 @@ function agregarAmigo() {
             amigos.push(inputAmigo.value);
             imprimirAmigos(inputAmigo.value);
             console.log(amigos);
+            const resultado = document.querySelector('#resultado');
+            resultado.innerHTML = '';
        }
        inputAmigo.value = '';
     } else {
@@ -39,10 +41,17 @@ function agregarAmigo() {
 
 // Sortea un amigo que este dentro del arreglo 'amigos' al azar y lo imprime en pantalla
 function sortearAmigo() {
-    const resultado = document.querySelector('#resultado');
-    const indiceAmigoSorteado = numeroAzar(amigos.length);
-    resultado.innerHTML = '';
-    const elegido = document.createElement("li");
-    elegido.innerHTML = "El amigo secreto sorteado es: " + amigos[indiceAmigoSorteado];
-    resultado.appendChild(elegido);
+    if (amigos.length > 0) {
+        const listado = document.querySelector('#listaAmigos');
+        listado.innerHTML = '';
+        const resultado = document.querySelector('#resultado');
+        const indiceAmigoSorteado = numeroAzar(amigos.length);
+        resultado.innerHTML = '';
+        const elegido = document.createElement("li");
+        elegido.innerHTML = "El amigo secreto sorteado es: " + amigos[indiceAmigoSorteado];
+        resultado.appendChild(elegido);
+        amigos = [];
+    } else {
+        alert("Por favor, ingrese algun amigo primero.");
+    }
 }
